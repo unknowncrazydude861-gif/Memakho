@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#070805" />
+  <meta name="theme-color" content="#050605" />
   <meta name="description" content="Memakho — your memories, kept alive." />
   <title>MEMAKHO — Your memories, kept alive.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,9 +12,12 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="loader" id="loader"><div class="leaf-spinner">⌁</div><span>MEMAKHO</span></div>
+  <div class="loader" id="loader"><div class="leaf-spinner">✦</div><span>MEMAKHO</span></div>
 
   <div id="webgl" aria-hidden="true"></div>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+  <div class="ambient ambient-c" aria-hidden="true"></div>
   <div class="noise" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
 
@@ -29,24 +32,24 @@
   </header>
 
   <main id="top">
-    <section class="hero section" data-scene="hero">
-      <div class="content hero-copy">
+    <section class="hero section">
+      <div class="hero-copy">
+        <div class="engine-pill"><span>✧</span> THE MEMORY ENGINE</div>
         <p class="kicker">YOUR MEMORIES, KEPT ALIVE.</p>
-        <h1>MEMAKHO</h1>
+        <h1>KEEP THE<br><span>MEMORY</span><br>ALIVE.</h1>
         <p class="lead">Capture it. Keep it. Remember it.</p>
         <div class="hero-actions">
           <button class="pill primary" id="exploreBtn">Explore Memakho <span>→</span></button>
           <button class="ghost" id="importTop">Read my photos <span>＋</span></button>
         </div>
-        <p class="privacy-note">Your photos stay in your browser. Nothing is uploaded.</p>
+        <p class="privacy-note">Your photos stay in this browser. Nothing is uploaded.</p>
       </div>
-      <div class="scroll-cue"><span>Scroll to explore</span><b></b></div>
+      <div class="hero-note"><span class="dot"></span><span>Scroll to explore</span></div>
     </section>
 
-    <section class="feature section" id="features" data-scene="features">
+    <section class="feature section" id="features">
       <div class="feature-copy">
-        <span class="section-no">01</span>
-        <span class="hairline"></span>
+        <div class="section-tag"><span>01</span><i></i></div>
         <h2>More than<br>just <em>photos.</em></h2>
         <p>Memakho is your personal memory space, where moments, people, places and feelings come together.</p>
         <div class="feature-grid">
@@ -56,12 +59,12 @@
           <div><span class="icon">▤</span><strong>Stories</strong><small>The context behind what happened.</small></div>
         </div>
       </div>
-      <div class="section-copy-right"><span class="orbit-hint">MOVE YOUR POINTER</span></div>
+      <div class="scene-caption">MOVE YOUR POINTER<br>THROUGH THE MEMORY FIELD</div>
     </section>
 
-    <section class="timeline section" id="about" data-scene="timeline">
+    <section class="timeline section" id="about">
       <div class="timeline-copy">
-        <span class="section-no">02</span><span class="hairline"></span>
+        <div class="section-tag"><span>02</span><i></i></div>
         <h2>Your memories.<br>In a <em>timeline.</em></h2>
         <p>From the little moments to the big days, Memakho helps you relive your journey — one memory at a time.</p>
         <button class="text-button" id="timelineBtn">See how it works <span>→</span></button>
@@ -69,9 +72,9 @@
       <div class="timeline-years" aria-hidden="true"><span>2024</span><span>2025</span><span>2026</span></div>
     </section>
 
-    <section class="capture section" data-scene="capture">
+    <section class="capture section">
       <div class="capture-copy">
-        <span class="section-no">03</span><span class="hairline"></span>
+        <div class="section-tag"><span>03</span><i></i></div>
         <h2>Capture a memory.<br>Your <em>way.</em></h2>
         <p>Add photos, notes, voice, location and more. It’s simple, quick and always with you.</p>
         <div class="capture-tools">
@@ -89,7 +92,11 @@
 
     <section class="photo-library" id="library">
       <div class="library-head">
-        <div><span class="section-no">04</span><span class="hairline"></span><h2>Your <em>memories.</em></h2><p>Bring in your photos and watch them become part of the scene.</p></div>
+        <div>
+          <div class="section-tag"><span>04</span><i></i></div>
+          <h2>Your <em>memories.</em></h2>
+          <p>Bring in your photos and watch them become part of the scene.</p>
+        </div>
         <div class="library-actions">
           <button class="pill primary" id="importBtn">Import photos <span>＋</span></button>
           <button class="pill secondary" id="folderBtn">Import folder <span>＋</span></button>
