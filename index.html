@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070805" />
+  <meta name="description" content="Memakho — your memories, kept alive." />
+  <title>MEMAKHO — Your memories, kept alive.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="loader" id="loader"><div class="leaf-spinner">⌁</div><span>MEMAKHO</span></div>
+
+  <div id="webgl" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="brand" href="#top"><span class="brand-leaf">◢</span><span>MEMAKHO</span></a>
+    <nav class="nav-links">
+      <a class="active" href="#top">Home</a>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <button class="menu-btn" type="button" aria-label="Open menu"><i></i><i></i><i></i></button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section" data-scene="hero">
+      <div class="content hero-copy">
+        <p class="kicker">YOUR MEMORIES, KEPT ALIVE.</p>
+        <h1>MEMAKHO</h1>
+        <p class="lead">Capture it. Keep it. Remember it.</p>
+        <div class="hero-actions">
+          <button class="pill primary" id="exploreBtn">Explore Memakho <span>→</span></button>
+          <button class="ghost" id="importTop">Read my photos <span>＋</span></button>
+        </div>
+        <p class="privacy-note">Your photos stay in your browser. Nothing is uploaded.</p>
+      </div>
+      <div class="scroll-cue"><span>Scroll to explore</span><b></b></div>
+    </section>
+
+    <section class="feature section" id="features" data-scene="features">
+      <div class="feature-copy">
+        <span class="section-no">01</span>
+        <span class="hairline"></span>
+        <h2>More than<br>just <em>photos.</em></h2>
+        <p>Memakho is your personal memory space, where moments, people, places and feelings come together.</p>
+        <div class="feature-grid">
+          <div><span class="icon">⌁</span><strong>Moments</strong><small>Photos, thoughts, experiences.</small></div>
+          <div><span class="icon">♧</span><strong>People</strong><small>The people who matter.</small></div>
+          <div><span class="icon">◷</span><strong>Time</strong><small>Dates and moments that matter.</small></div>
+          <div><span class="icon">▤</span><strong>Stories</strong><small>The context behind what happened.</small></div>
+        </div>
+      </div>
+      <div class="section-copy-right"><span class="orbit-hint">MOVE YOUR POINTER</span></div>
+    </section>
+
+    <section class="timeline section" id="about" data-scene="timeline">
+      <div class="timeline-copy">
+        <span class="section-no">02</span><span class="hairline"></span>
+        <h2>Your memories.<br>In a <em>timeline.</em></h2>
+        <p>From the little moments to the big days, Memakho helps you relive your journey — one memory at a time.</p>
+        <button class="text-button" id="timelineBtn">See how it works <span>→</span></button>
+      </div>
+      <div class="timeline-years" aria-hidden="true"><span>2024</span><span>2025</span><span>2026</span></div>
+    </section>
+
+    <section class="capture section" data-scene="capture">
+      <div class="capture-copy">
+        <span class="section-no">03</span><span class="hairline"></span>
+        <h2>Capture a memory.<br>Your <em>way.</em></h2>
+        <p>Add photos, notes, voice, location and more. It’s simple, quick and always with you.</p>
+        <div class="capture-tools">
+          <button data-kind="Photo" id="photoTool"><span>▣</span>Photo</button>
+          <button data-kind="Text"><span>▤</span>Text</button>
+          <button data-kind="Voice"><span>◉</span>Voice</button>
+          <button data-kind="Location"><span>⌖</span>Location</button>
+          <button data-kind="Date & Time"><span>◷</span>Date & Time</button>
+          <button data-kind="Tags"><span>◇</span>Tags</button>
+        </div>
+        <button class="text-button" id="exploreApp">Explore the app <span>→</span></button>
+      </div>
+      <div class="capture-status" id="photoStatus">0 local photos loaded</div>
+    </section>
+
+    <section class="photo-library" id="library">
+      <div class="library-head">
+        <div><span class="section-no">04</span><span class="hairline"></span><h2>Your <em>memories.</em></h2><p>Bring in your photos and watch them become part of the scene.</p></div>
+        <div class="library-actions">
+          <button class="pill primary" id="importBtn">Import photos <span>＋</span></button>
+          <button class="pill secondary" id="folderBtn">Import folder <span>＋</span></button>
+          <button class="clear-btn" id="clearBtn">Clear</button>
+        </div>
+      </div>
+      <div class="library-grid" id="libraryGrid"></div>
+      <input id="photoInput" type="file" accept="image/*" multiple hidden>
+      <input id="folderInput" type="file" accept="image/*" webkitdirectory directory multiple hidden>
+      <p class="library-empty" id="libraryEmpty">Choose a folder or select multiple photos. The browser can only read files you explicitly choose.</p>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-left"><a href="#top">Home</a><a href="#features">Features</a><a href="#about">About</a></div>
+      <div class="footer-center"><div class="footer-brand"><span class="brand-leaf">◢</span> MEMAKHO</div><small>Your memories, kept alive.</small></div>
+      <div class="footer-right"><span>◌</span><span>◍</span><span>✕</span></div>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
