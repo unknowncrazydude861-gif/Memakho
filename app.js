@@ -1,5 +1,4 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js';
-import { EXRLoader } from 'https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/loaders/EXRLoader.js';
 
 const state={photos:[],sceneProgress:0,targetProgress:0,pointerX:0,pointerY:0};
 const demoPhotos=[
@@ -14,7 +13,7 @@ const $=s=>document.querySelector(s);
 const $$=s=>[...document.querySelectorAll(s)];
 const toast=(msg)=>{const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),2400)};
 
-// Three-dimensional memory environment
+// Cinematic 3D memory environment
 const root=$('#webgl');
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
 renderer.setPixelRatio(Math.min(devicePixelRatio,1.8));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;root.appendChild(renderer.domElement);
@@ -63,7 +62,7 @@ addEventListener('scroll',scrollProgress,{passive:true});
 addEventListener('pointermove',e=>{state.pointerX=e.clientX/innerWidth-.5;state.pointerY=e.clientY/innerHeight-.5});
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.8))});
 
-// Local photo library — files never leave the browser.
+// Local photo library — the browser reads only files the user explicitly selects or drops.
 const DB='memakho-memory-library',STORE='photos';
 function openDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore(STORE,{keyPath:'id'});r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
 async function dbPut(item){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put(item);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
@@ -78,14 +77,11 @@ $('#photoInput').addEventListener('change',e=>addFiles(e.target.files));$('#fold
 $('#importBtn').onclick=()=>$('#photoInput').click();$('#folderBtn').onclick=()=>$('#folderInput').click();$('#importTop').onclick=()=>$('#photoInput').click();$('#photoTool').onclick=()=>$('#photoInput').click();
 $('#clearBtn').onclick=async()=>{await dbClear();state.photos.forEach(p=>URL.revokeObjectURL(p.url));state.photos=[];renderLibrary();await rebuildPhotoMeshes();toast('Your local memory library is empty')};
 
-// Drag and drop support over the whole page.
 addEventListener('dragover',e=>{if(e.dataTransfer?.types?.includes('Files'))e.preventDefault()});
 addEventListener('drop',e=>{if(!e.dataTransfer?.files?.length)return;e.preventDefault();addFiles(e.dataTransfer.files)});
-
 $('#exploreBtn').onclick=()=>$('#features').scrollIntoView({behavior:'smooth'});
 $('#timelineBtn').onclick=()=>$('#library').scrollIntoView({behavior:'smooth'});
 $('#exploreApp').onclick=()=>$('#library').scrollIntoView({behavior:'smooth'});
 $$('.capture-tools button').forEach(b=>b.addEventListener('click',()=>toast(`${b.dataset.kind} memory tool selected`)));
 
-// Hide loader only after the 3D scene is ready.
 (async()=>{await loadPhotos();setTimeout(()=>$('#loader').classList.add('hide'),900);updateWorld()})().catch(()=>{renderLibrary();setTimeout(()=>$('#loader').classList.add('hide'),900);updateWorld()});
